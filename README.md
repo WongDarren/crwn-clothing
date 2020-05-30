@@ -2,7 +2,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Home Page
 
-![Image of Home Page](https://imgur.com/tprF4Yr)
+![Image of Home Page](README-images/home.jpg)
+
+Shop Page
+
+![Image of Shop Page](README-images/shop.jpg)
+
+Sign In Page
+
+![Image of Sign In Page](README-images/signIn.jpg)
 
 ## Available Scripts
 
