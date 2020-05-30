@@ -10,7 +10,7 @@ Shop Page
 
 Sign In Page
 
-![Image of Sign In Page](README-images/signIn.jpg)
+![Image of Sign In Page](README-images/signIn.png)
 
 ## Available Scripts
 
