@@ -1,14 +1,22 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Home Page
+# Crwn Clothing
+E-Commerce App built with React
+
+### Technologies
+1. React.js
+2. SCSS and Styled Components
+3. TODO: Firebase for Sign in and Sign Up features
+
+### Home Page
 
 ![Image of Home Page](README-images/home.jpg)
 
-Shop Page
+### Shop Page
 
 ![Image of Shop Page](README-images/shop.jpg)
 
-Sign In Page
+### Sign In Page
 
 ![Image of Sign In Page](README-images/signIn.png)
 
