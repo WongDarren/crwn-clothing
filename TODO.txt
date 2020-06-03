@@ -1,0 +1,39 @@
+Setting Up E-commerce Project
+------------------------------
+[x] HomePage component and styles
+[x] Get Sass (npm install node-sass)
+[x] HomePage styles (most styles will be given from course)
+[x] Organize folder structure ('reusable' components folder and 'used only once' pages folder)
+[x] MenuItem component
+[x] Directory component and styles
+[x] Menu item styles
+------------------------------
+Router and Routing
+------------------------------ 
+[x] Install React Router DOM library for routing
+[x] Set up basic routing for HomePage and ShopPage
+[x] Set up routing for different items in menu item component
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]
+[]

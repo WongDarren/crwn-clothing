@@ -16,11 +16,15 @@ const Header = () => (
         SHOP
       </Link>
 
-      <Link className='option' to='/shop'>
+      <Link className='option' to='/contact'>
         CONTACT
+      </Link>
+
+      <Link className='option' to='/signin'>
+        Sign In
       </Link>
     </div>
   </div>
-)
+);
 
 export default Header;
