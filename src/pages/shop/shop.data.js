@@ -1,3 +1,5 @@
+// provided data for our shop page
+
 const SHOP_DATA = [
   {
     id: 1,

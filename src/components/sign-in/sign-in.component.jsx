@@ -5,6 +5,7 @@ import CustomButton from '../../components/custom-button/custom-button.component
 
 import './sign-in.styles.scss';
 
+// class because we have to store what the user is typing in
 class SignIn extends React.Component{
   constructor(props) {
     super(props);
@@ -15,13 +16,19 @@ class SignIn extends React.Component{
     }
   }  
 
+  // we want to prevent the default action of submit because we want full control
+  // then we clear out our fields
   handleSubmit = event => {
+    // .PreventDefault() is used to stop the default behavior of an HTML form and potentially hijack it or prevent something from happening so we have more control over it
     event.PreventDefault();
 
     this.setState({email: '', password: ''})
   }
 
-
+  // pull both value and name off of our event.target
+  // event.target will be the input element itself
+  // then dynamically set state so it sets the name
+  // ex: [password]: bananaPassword
   handleChange = event => {
     const {value, name} = event.target;
     this.setState({[name]: value})
@@ -35,21 +42,21 @@ class SignIn extends React.Component{
 
         <form onSubmit={this.handleSubmit}>
           <FormInput 
-          name='email' 
-          type='email' 
-          value={this.state.email} 
-          handleChange={this.handleChange}
-          label='email'
-          required
+            name='email' 
+            type='email' 
+            value={this.state.email} 
+            handleChange={this.handleChange}
+            label='email'
+            required
           />
 
           <FormInput 
-          name='password' 
-          type='password' 
-          value={this.state.email} 
-          handleChange={this.handleChange}
-          label='password'
-          required 
+            name='password' 
+            type='password' 
+            value={this.state.email} 
+            handleChange={this.handleChange}
+            label='password'
+            required 
           />
 
           <CustomButton type="submit">Sign In</CustomButton>
