@@ -16,7 +16,8 @@ class ShopPage extends React.Component {
   render() {
     // destructure collections
     const {collections} = this.state;
-    return (<div className='shop-page'>
+    return (
+    <div className='shop-page'>
       {
         // map over our collections
         // and render out CollectionPreview where key is the id
@@ -25,9 +26,9 @@ class ShopPage extends React.Component {
           <CollectionPreview key={id} {...otherCollectionProps}/>
         ))
       }
-    </div>);
+    </div>
+    );
   }
-
 }
 
 
