@@ -21,13 +21,16 @@ More Components and Pages
 [x] Collection items
 [] Hover effect for Add to Cart for collection items
 [x] Header component (logo and navbar)
+------------------------------
+Sign in Functionality
+------------------------------ 
 [] Sign in and Sign up page
 [x] Sign in component
 [x] Form set up for sign in component
 [x] Custom button
-[] Sign up and Firebase integration
-[]
-[]
+[x] Sign up and Firebase integration
+[x] Header Sign in and Sign out changes based on user sign in state
+[x] Some styles for sign in buttons
 []
 []
 []

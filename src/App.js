@@ -18,6 +18,8 @@ import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import Header from './components/header/header.component';
 
+import {auth} from './firebase/firebase.utils'
+
 /*
 Basic Properties for <Route />
 exact -  True or False property. Means that the PATH must be EXACT for component to render
@@ -30,17 +32,44 @@ component - The component that we want the route to render.
 // If I used Switch without the exact for HomePage, and I tried to go to /shop, then / would be rendered and that's it.
 // It will match / first, then not render anything else after it. 
 // Switch is useful because it gives us more control. Allows us to follow a pattern where we know as long as one route matches, then that's the only thing we're gonna render.
-function App() {
-  return (
-    <div> 
-      <Header />
-      <Switch>
-        <Route exact path='/' component={HomePage}/>
-        <Route path='/shop' component={ShopPage}/>
-        <Route path='/signin' component={SignInAndSignUp}/>
-      </Switch>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      currentUser: null
+    }
+  }
+
+  // +++++++++++ This is how we handle our app being aware of any auth changes on firebase
+  unsubscribefromAuth = null;
+
+  componentDidMount() {
+    this.unsubscribefromAuth = auth.onAuthStateChanged(user => {
+      this.setState({currentUser: user});
+
+      console.log(user);
+
+    })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribefromAuth();
+  }
+  // +++++++++++ end firebase auth
+
+  render() {
+    return (
+      <div> 
+        <Header currentUser={this.state.currentUser}/>
+        <Switch>
+          <Route exact path='/' component={HomePage}/>
+          <Route path='/shop' component={ShopPage}/>
+          <Route path='/signin' component={SignInAndSignUp}/>
+        </Switch>
+      </div>
+    );
+  }
 }
 
 export default App;
