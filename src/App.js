@@ -9,7 +9,7 @@ Instead of <Link to='/page> Page </Link> we could use
 <button onClick={() => props.history.push('/page')}> Page </button>
 That would give us more dynamic access. 
 */
-import {Switch, Route, Link} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 
 import './App.css';
 
@@ -43,7 +43,7 @@ class App extends React.Component {
 
   // +++++++++++ This is how we handle our app being aware of any auth changes on firebase
   unsubscribefromAuth = null;
- 
+
   componentDidMount() {
     this.unsubscribefromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -56,6 +56,7 @@ class App extends React.Component {
               ...snapShot.data()
             }
           });
+          console.log(this.state);
         });
       }
       this.setState({currentUser: userAuth});
