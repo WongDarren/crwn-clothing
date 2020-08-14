@@ -6,7 +6,7 @@
   <br/>
   <img
     alt="mockup"
-    src="assets/upvote-mock.png"
+    src="docs/upvote-mock.png"
     width=750px
   />
   <br/>
