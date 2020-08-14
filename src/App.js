@@ -10,6 +10,7 @@ Instead of <Link to='/page> Page </Link> we could use
 That would give us more dynamic access. 
 */
 import {Switch, Route} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import './App.css';
 
@@ -19,6 +20,8 @@ import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.com
 import Header from './components/header/header.component';
 
 import {auth, createUserProfileDocument} from './firebase/firebase.utils'
+import {setCurrentUser} from './redux/user/user.actions';
+
 
 /*
 Basic Properties for <Route />
@@ -33,33 +36,23 @@ component - The component that we want the route to render.
 // It will match / first, then not render anything else after it. 
 // Switch is useful because it gives us more control. Allows us to follow a pattern where we know as long as one route matches, then that's the only thing we're gonna render.
 class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      currentUser: null
-    }
-  }
-
   // +++++++++++ This is how we handle our app being aware of any auth changes on firebase
   unsubscribefromAuth = null;
 
   componentDidMount() {
+    const {setCurrentUser} = this.props;
     this.unsubscribefromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapShot => {
-          this.setState({
-            currentUser: {
+          setCurrentUser({
               id: snapShot.id,
               ...snapShot.data()
-            }
           });
-          console.log(this.state);
         });
       }
-      this.setState({currentUser: userAuth});
+      setCurrentUser(userAuth);
     });
   }
 
@@ -71,7 +64,7 @@ class App extends React.Component {
   render() {
     return (
       <div> 
-        <Header currentUser={this.state.currentUser}/>
+        <Header />
         <Switch>
           <Route exact path='/' component={HomePage}/>
           <Route path='/shop' component={ShopPage}/>
@@ -82,4 +75,8 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+});
+
+export default connect(null, mapDispatchToProps)(App);
