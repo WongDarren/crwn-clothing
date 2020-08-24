@@ -30,7 +30,7 @@ This project was created following the course [_Complete React Developer in 2019
 npm install
 ```
 
-### Compiles and starts locally
+### Compiles and starts development build
 ```
 npm start
 ```
