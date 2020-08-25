@@ -1,6 +1,6 @@
 import {UserActionTypes} from './user.types';
 
-INITIAL_STATE = {
+const INITIAL_STATE = {
   currentUser: null
 }
 
