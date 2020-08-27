@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 /*
 Switch component- Wrap Route components inside.
         The moment that a route inside of it finds a match in the path, it does not render anything else but that route.
@@ -9,19 +9,21 @@ Instead of <Link to='/page> Page </Link> we could use
 <button onClick={() => props.history.push('/page')}> Page </button>
 That would give us more dynamic access. 
 */
-import {Switch, Route, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
+import { Switch, Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
-import './App.css';
+import "./App.css";
 
-import HomePage from './pages/homepage/homepage.component';
-import ShopPage from './pages/shop/shop.component';
-import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import Header from './components/header/header.component';
+import HomePage from "./pages/homepage/homepage.component";
+import ShopPage from "./pages/shop/shop.component";
+import CheckoutPage from "./pages/checkout/checkout.component";
+import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
+import Header from "./components/header/header.component";
 
-import {auth, createUserProfileDocument} from './firebase/firebase.utils'
-import {setCurrentUser} from './redux/user/user.actions';
-
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import { setCurrentUser } from "./redux/user/user.actions";
+import { selectCurrentUser } from "./redux/user/user.selector";
 
 /*
 Basic Properties for <Route />
@@ -33,22 +35,22 @@ component - The component that we want the route to render.
 */
 
 // If I used Switch without the exact for HomePage, and I tried to go to /shop, then / would be rendered and that's it.
-// It will match / first, then not render anything else after it. 
+// It will match / first, then not render anything else after it.
 // Switch is useful because it gives us more control. Allows us to follow a pattern where we know as long as one route matches, then that's the only thing we're gonna render.
 class App extends React.Component {
   // +++++++++++ This is how we handle our app being aware of any auth changes on firebase
   unsubscribefromAuth = null;
 
   componentDidMount() {
-    const {setCurrentUser} = this.props;
-    this.unsubscribefromAuth = auth.onAuthStateChanged(async userAuth => {
+    const { setCurrentUser } = this.props;
+    this.unsubscribefromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
-        userRef.onSnapshot(snapShot => {
+        userRef.onSnapshot((snapShot) => {
           setCurrentUser({
-              id: snapShot.id,
-              ...snapShot.data()
+            id: snapShot.id,
+            ...snapShot.data(),
           });
         });
       }
@@ -63,20 +65,17 @@ class App extends React.Component {
 
   render() {
     return (
-      <div> 
+      <div>
         <Header />
         <Switch>
-          <Route exact path='/' component={HomePage}/>
-          <Route path='/shop' component={ShopPage}/>
-          <Route 
-            exact 
-            path='/signin' 
-            render={() => 
-              this.props.currentUser ? (
-              <Redirect to='/'/>
-              ) : (
-              <SignInAndSignUp/>
-              )
+          <Route exact path="/" component={HomePage} />
+          <Route path="/shop" component={ShopPage} />
+          <Route exact path="/checkout" component={CheckoutPage} />
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              this.props.currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
             }
           />
         </Switch>
@@ -85,12 +84,13 @@ class App extends React.Component {
   }
 }
 
-const mapStateTpProps = ({user}) => ({
-  currentUser: user.currentUser
-})
+const mapStateTpProps = (state) =>
+  createStructuredSelector({
+    currentUser: selectCurrentUser,
+  });
 
-const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
 export default connect(mapStateTpProps, mapDispatchToProps)(App);

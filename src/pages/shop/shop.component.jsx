@@ -1,6 +1,6 @@
-import React from 'react';
-import SHOP_DATA from './shop.data.js';
-import CollectionPreview from '../../components/collection-preview/collection-preview.component';
+import React from "react";
+import SHOP_DATA from "./shop.data.js";
+import CollectionPreview from "../../components/collection-preview/collection-preview.component";
 
 class ShopPage extends React.Component {
   constructor(props) {
@@ -9,27 +9,26 @@ class ShopPage extends React.Component {
 
     this.state = {
       // SHOP_DATA is an array of objects that we imported
-      collections: SHOP_DATA
-    }
+      collections: SHOP_DATA,
+    };
   }
 
   render() {
     // destructure collections
-    const {collections} = this.state;
+    const { collections } = this.state;
     return (
-    <div className='shop-page'>
-      {
-        // map over our collections
-        // and render out CollectionPreview where key is the id
-        // so we need to destructure collections to {id, ...otherCollectionProps}
-        collections.map(({id, ...otherCollectionProps}) => (
-          <CollectionPreview key={id} {...otherCollectionProps}/>
-        ))
-      }
-    </div>
+      <div className="shop-page">
+        {
+          // map over our collections
+          // and render out CollectionPreview where key is the id
+          // so we need to destructure collections to {id, ...otherCollectionProps}
+          collections.map(({ id, ...otherCollectionProps }) => (
+            <CollectionPreview key={id} {...otherCollectionProps} />
+          ))
+        }
+      </div>
     );
   }
 }
-
 
 export default ShopPage;

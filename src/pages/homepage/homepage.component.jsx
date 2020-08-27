@@ -1,11 +1,10 @@
-import React from 'react';
+import React from "react";
 
 // Directory component
-import Directory from '../../components/directory/directory.component';
+import Directory from "../../components/directory/directory.component";
 
 // styles for this component
-import './homepage.styles.scss';
-
+import "./homepage.styles.scss";
 
 // <Directory /> is a component with the following
 /*
@@ -18,7 +17,7 @@ import './homepage.styles.scss';
 */
 // const because functional component, don't really need to store any state
 const HomePage = () => (
-  <div className='homepage'>
+  <div className="homepage">
     <Directory />
   </div>
 );
