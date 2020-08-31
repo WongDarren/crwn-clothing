@@ -1,27 +1,10 @@
 import React from "react";
 
-import "./custom-button.styles.scss";
+//import "./custom-button.styles.scss";
+import { CustomButtonContainer } from "./custom-button.styles";
 
-// <input> and <button> both can take property type='submit'
-// and can both submit the form they're in
-// both trigger the obSubmit method on Form
-
-// pull the children off of our props that get passed into our custom button
-// spread otherProps into our custom button
-const CustomButton = ({
-  children,
-  isGoogleSignIn,
-  inverted,
-  ...otherProps
-}) => (
-  <button
-    className={`${inverted ? "inverted" : ""} 
-    ${isGoogleSignIn ? "google-sign-in" : ""} 
-    custom-button`}
-    {...otherProps}
-  >
-    {children}
-  </button>
+const CustomButton = ({ children, ...props }) => (
+  <CustomButtonContainer {...props}>{children}</CustomButtonContainer>
 );
 
 export default CustomButton;

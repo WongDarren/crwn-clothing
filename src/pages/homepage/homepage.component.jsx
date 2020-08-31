@@ -4,7 +4,10 @@ import React from "react";
 import Directory from "../../components/directory/directory.component";
 
 // styles for this component
-import "./homepage.styles.scss";
+// import "./homepage.styles.scss";
+
+// Styled Components
+import { HomePageContainer } from "./homepage.styles";
 
 // <Directory /> is a component with the following
 /*
@@ -17,9 +20,9 @@ import "./homepage.styles.scss";
 */
 // const because functional component, don't really need to store any state
 const HomePage = () => (
-  <div className="homepage">
+  <HomePageContainer>
     <Directory />
-  </div>
+  </HomePageContainer>
 );
 
 // export component so we can use Homepage somewhere else
