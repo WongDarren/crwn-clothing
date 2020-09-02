@@ -21,9 +21,15 @@ import CheckoutPage from "./pages/checkout/checkout.component";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import Header from "./components/header/header.component";
 
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import {
+  auth,
+  createUserProfileDocument,
+  addCollectionAndDocuments,
+} from "./firebase/firebase.utils";
+
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selector";
+import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
 
 /*
 Basic Properties for <Route />
@@ -42,7 +48,7 @@ class App extends React.Component {
   unsubscribefromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, collectionsArray } = this.props;
     this.unsubscribefromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
@@ -54,7 +60,13 @@ class App extends React.Component {
           });
         });
       }
+
       setCurrentUser(userAuth);
+
+      addCollectionAndDocuments(
+        "collections",
+        collectionsArray.map(({ title, items }) => ({ title, items }))
+      );
     });
   }
 
@@ -87,6 +99,7 @@ class App extends React.Component {
 const mapStateTpProps = (state) =>
   createStructuredSelector({
     currentUser: selectCurrentUser,
+    collectionsArray: selectCollectionsForPreview,
   });
 
 const mapDispatchToProps = (dispatch) => ({
