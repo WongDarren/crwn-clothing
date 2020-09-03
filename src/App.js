@@ -21,16 +21,7 @@ import CheckoutPage from "./pages/checkout/checkout.component";
 import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
 import Header from "./components/header/header.component";
 
-import {
-  auth,
-  createUserProfileDocument,
-  addCollectionAndDocuments,
-} from "./firebase/firebase.utils";
-
-import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selector";
-import { selectCollectionsForPreview } from "./redux/shop/shop.selectors";
-
 /*
 Basic Properties for <Route />
 exact -  True or False property. Means that the PATH must be EXACT for component to render
@@ -47,28 +38,7 @@ class App extends React.Component {
   // +++++++++++ This is how we handle our app being aware of any auth changes on firebase
   unsubscribefromAuth = null;
 
-  componentDidMount() {
-    const { setCurrentUser, collectionsArray } = this.props;
-    this.unsubscribefromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-
-        userRef.onSnapshot((snapShot) => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      }
-
-      setCurrentUser(userAuth);
-
-      addCollectionAndDocuments(
-        "collections",
-        collectionsArray.map(({ title, items }) => ({ title, items }))
-      );
-    });
-  }
+  componentDidMount() {}
 
   componentWillUnmount() {
     this.unsubscribefromAuth();
@@ -96,14 +66,9 @@ class App extends React.Component {
   }
 }
 
-const mapStateTpProps = (state) =>
+const mapStateToProps = (state) =>
   createStructuredSelector({
     currentUser: selectCurrentUser,
-    collectionsArray: selectCollectionsForPreview,
   });
 
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
-
-export default connect(mapStateTpProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
