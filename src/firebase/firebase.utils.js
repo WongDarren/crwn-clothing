@@ -74,6 +74,15 @@ export const convertCollectionsSnapshotToMap = (collections) => {
   }, {});
 };
 
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+};
+
 // get access to .auth() from 'firebase/auth'
 // export this out to anywhere we need to use authentication
 export const auth = firebase.auth();

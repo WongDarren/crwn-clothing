@@ -22,6 +22,7 @@ import SignInAndSignUp from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.com
 import Header from "./components/header/header.component";
 
 import { selectCurrentUser } from "./redux/user/user.selector";
+import { checkUserSession } from "./redux/user/user.actions";
 /*
 Basic Properties for <Route />
 exact -  True or False property. Means that the PATH must be EXACT for component to render
@@ -38,7 +39,10 @@ class App extends React.Component {
   // +++++++++++ This is how we handle our app being aware of any auth changes on firebase
   unsubscribefromAuth = null;
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { checkUserSession } = this.props;
+    checkUserSession();
+  }
 
   componentWillUnmount() {
     this.unsubscribefromAuth();
@@ -71,4 +75,8 @@ const mapStateToProps = (state) =>
     currentUser: selectCurrentUser,
   });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  checkUserSession: () => dispatch(checkUserSession()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
