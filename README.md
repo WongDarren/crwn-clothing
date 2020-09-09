@@ -6,7 +6,7 @@
   <br/>
   <img
     alt="mockup"
-    src="docs/mockup.jpg"
+    src="client/docs/mockup.jpg"
     width=750px
   />
   <br/>
