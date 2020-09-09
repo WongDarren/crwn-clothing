@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 /*
 Switch component- Wrap Route components inside.
         The moment that a route inside of it finds a match in the path, it does not render anything else but that route.
@@ -35,40 +35,29 @@ component - The component that we want the route to render.
 // If I used Switch without the exact for HomePage, and I tried to go to /shop, then / would be rendered and that's it.
 // It will match / first, then not render anything else after it.
 // Switch is useful because it gives us more control. Allows us to follow a pattern where we know as long as one route matches, then that's the only thing we're gonna render.
-class App extends React.Component {
-  // +++++++++++ This is how we handle our app being aware of any auth changes on firebase
-  unsubscribefromAuth = null;
-
-  componentDidMount() {
-    const { checkUserSession } = this.props;
+const App = ({ checkUserSession, currentUser }) => {
+  useEffect(() => {
     checkUserSession();
-  }
+  }, [checkUserSession]);
 
-  componentWillUnmount() {
-    this.unsubscribefromAuth();
-  }
-  // +++++++++++ end firebase auth
-
-  render() {
-    return (
-      <div>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/shop" component={ShopPage} />
-          <Route exact path="/checkout" component={CheckoutPage} />
-          <Route
-            exact
-            path="/signin"
-            render={() =>
-              this.props.currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
-            }
-          />
-        </Switch>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/shop" component={ShopPage} />
+        <Route exact path="/checkout" component={CheckoutPage} />
+        <Route
+          exact
+          path="/signin"
+          render={() =>
+            currentUser ? <Redirect to="/" /> : <SignInAndSignUp />
+          }
+        />
+      </Switch>
+    </div>
+  );
+};
 
 const mapStateToProps = (state) =>
   createStructuredSelector({
