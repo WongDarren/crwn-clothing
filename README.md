@@ -23,7 +23,7 @@
 
 ## About❓️
 
-This project was created following the course [_Complete React Developer in 2019 w/ Reduc, Hooks, and GraphQL_][1].
+This project was created following the course [_Complete React Developer in 2019 w/ Redux, Hooks, and GraphQL_][1].
 <br/>
 Check out my live version [_here_][2]!
 
